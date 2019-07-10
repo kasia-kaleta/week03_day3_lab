@@ -27,6 +27,15 @@ def albums()
   return albums
 end
 
+def self.find(id)
+  sql = "SELECT * FROM artists WHERE id = $1"
+  values = [id]
+  results = SqlRunner.run("find", values)
+  artist_hash = results.first
+  artist = Artist.new(artist_hash)
+  return artist
+end
+
 def self.delete_all()
   sql = "DELETE FROM artists"
   SqlRunner.run(sql)
